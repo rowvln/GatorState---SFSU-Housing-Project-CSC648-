@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<section>
+			<div class="container mt-3">
+				<h2>Vertical Prototype - Team 6</h2>
+				<p>Search for an address and select what type of building you want to see.</p> 				
+				<form action="./search" method="get" novalidate>
+						<input type="text" name="search" placeholder="Try 94132 and Dorm">
+						<select name="filter" required>
+			    <option value="" selected>Select</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="house">House</option>
+                            <option value="dorm">Dorm</option>
+						</select>
+						<button type="submit" class="btn btn-primary">Search</button>
+				</form>
+			</div>
+		</section>
+		<div style="position: relative" align="center">
+			<button style="position: fixed; bottom: 0" onclick="window.location.href='/about'" type="button" class="btn btn-primary">About Page</button>
+		</div>
+	</body>
+
+</html>

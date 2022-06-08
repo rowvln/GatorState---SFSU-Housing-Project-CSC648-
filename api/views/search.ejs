@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        //require('bootstrap');
+
+        $(document).ready(function () {
+            var listitem = $('#listings');
+            var whole = $('#whole');
+            var main = $('#main');
+
+            var streetAddress, city, zipCode, state, imageLocation, homeType, price;
+
+
+            urlOb = new URL(window.location.href);
+            var search = urlOb.searchParams.get("search");
+            var filter = urlOb.searchParams.get("filter");
+
+
+            $(document).ready(function () {
+                var jsonURL;
+                //debugger
+                if (search == "" && filter == "") {
+                    jsonURL = `http://localhost:3001/listings`;
+                }
+                else if(search != "" && filter == ""){
+                    // debugger
+                    jsonURL = `http://localhost:3001/listingsSearch/${search}`
+                }
+                else if(search == "" && filter != ""){
+                    jsonURL = `http://localhost:3001/listingsFilter/${filter}/`;
+                }
+                else {
+                    jsonURL = `http://localhost:3001/listings/${search}/${filter}/`;
+                }
+                //debugger
+                $.getJSON(jsonURL, function (result) {
+                    $.each(result, function (i, field) {
+                        streetAddress = field.street_address;
+                        city = field.city;
+                        zipCode = field.zip_code;
+                        state = field.state;
+                        homeType = field.home_type;
+                        homeType = homeType.charAt(0).toUpperCase() + homeType.slice(1);
+                        image = field.images;
+                        price = field.price;
+                        informationString = `<div>${streetAddress}</div><div>${city}, ${state} ${zipCode}</div><div>${homeType}</div>`;
+
+                        main.append(`<div class="media">
+                            <img src="${image}" height="200" width="200" class="mr-3" alt="...">
+                                <div class="media-body">
+                                <h5 class="mt-0">$${price}</h5>
+                                ${informationString}
+                                </div>
+                                </div>`)
+                    });
+                });
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <div id="main"><h1>Results:</h1></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
